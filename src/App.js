@@ -42,6 +42,14 @@ function App() {
     setCrrFromAmount(true);
   }
 
+  useEffect(() => {
+    if (fromCrr != null && toCrr != null) {
+      fetch(`${api}?base=${fromCrr}&symbols=${toCrr}`)
+        .then((res) => res.json())
+        .then((data) => setexchangeRate(data.rates[toCrr]));
+    }
+  }, [fromCrr, toCrr]);
+
   function handleToAmountChange(e) {
     setamountVal(e.target.value);
     setCrrFromAmount(false);
